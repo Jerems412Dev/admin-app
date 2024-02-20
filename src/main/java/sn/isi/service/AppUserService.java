@@ -9,17 +9,15 @@ import sn.isi.dto.AppUser;
 import sn.isi.exception.EntityNotFoundException;
 import sn.isi.exception.RequestException;
 import sn.isi.mapping.AppUserMapper;
-
 import java.util.List;
 import java.util.Locale;
-import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
 
 @Service
 public class AppUserService {
-    private IAppUserRepository iAppUserRepository;
-    private AppUserMapper appUserMapper;
+    private final IAppUserRepository iAppUserRepository;
+    private final AppUserMapper appUserMapper;
     MessageSource messageSource;
+    private final static String APPUSERNOTFOUND = "user.notfound";
 
     public AppUserService(IAppUserRepository iAppUserRepository, AppUserMapper appUserMapper, MessageSource messageSource) {
         this.iAppUserRepository = iAppUserRepository;
@@ -28,17 +26,25 @@ public class AppUserService {
     }
 
     @Transactional(readOnly = true)
-    public List<AppUser> getAppUser() {
-        return StreamSupport.stream(iAppUserRepository.findAll().spliterator(), false)
+    public List<AppUser> getAppUsers() {
+        return iAppUserRepository.findAll().stream()
                 .map(appUserMapper::toAppUser)
-                .collect(Collectors.toList());
+                .toList();
+    }
+
+    @Transactional(readOnly = true)
+    public AppUser getAppUser(int id) {
+        return appUserMapper.toAppUser(iAppUserRepository.findById(id)
+                .orElseThrow(() ->
+                        new EntityNotFoundException(messageSource.getMessage(APPUSERNOTFOUND, new Object[]{id},
+                                Locale.getDefault()))));
     }
 
     @Transactional(readOnly = true)
     public AppUser getAppRole(int id) {
         return appUserMapper.toAppUser(iAppUserRepository.findById(id)
                 .orElseThrow(() ->
-                        new EntityNotFoundException(messageSource.getMessage("user.notfound", new Object[]{id},
+                        new EntityNotFoundException(messageSource.getMessage(APPUSERNOTFOUND, new Object[]{id},
                                 Locale.getDefault()))));
     }
 
@@ -54,7 +60,7 @@ public class AppUserService {
                     appUser.setId(id);
                     return appUserMapper.toAppUser(
                             iAppUserRepository.save(appUserMapper.fromAppUser(appUser)));
-                }).orElseThrow(() -> new EntityNotFoundException(messageSource.getMessage("user.notfound", new Object[]{id},
+                }).orElseThrow(() -> new EntityNotFoundException(messageSource.getMessage(APPUSERNOTFOUND, new Object[]{id},
                         Locale.getDefault())));
     }
 
@@ -63,7 +69,7 @@ public class AppUserService {
         try {
             iAppUserRepository.deleteById(id);
         } catch (Exception e) {
-            throw new RequestException(messageSource.getMessage("user.errordeletion", new Object[]{id},
+            throw new RequestException(messageSource.getMessage("user.error deletion", new Object[]{id},
                     Locale.getDefault()),
                     HttpStatus.CONFLICT);
         }

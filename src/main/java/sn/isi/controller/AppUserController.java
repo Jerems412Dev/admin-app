@@ -17,12 +17,12 @@ public class AppUserController {
 
     @GetMapping
     public List<AppUser> getAppUser() {
-        return appUserService.getAppUser();
+        return appUserService.getAppUsers();
     }
 
     @GetMapping("/{id}")
     public AppUser getAppUser(@PathVariable("id") int id) {
-        return appUserService.getAppUser().get(id);
+        return appUserService.getAppUser(id);
     }
 
     @PostMapping

@@ -9,15 +9,14 @@ import sn.isi.dto.AppRoles;
 import sn.isi.exception.EntityNotFoundException;
 import sn.isi.exception.RequestException;
 import sn.isi.mapping.AppRolesMapper;
-
 import java.util.List;
 import java.util.Locale;
 import java.util.stream.StreamSupport;
 
 @Service
 public class AppRolesService {
-    private IAppRolesRepository iAppRolesRepository;
-    private AppRolesMapper appRolesMapper;
+    private final IAppRolesRepository iAppRolesRepository;
+    private final AppRolesMapper appRolesMapper;
     MessageSource messageSource;
 
     public AppRolesService(IAppRolesRepository iAppRolesRepository, AppRolesMapper appRolesMapper, MessageSource messageSource) {

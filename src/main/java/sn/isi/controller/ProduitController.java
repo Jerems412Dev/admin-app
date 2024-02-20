@@ -17,12 +17,12 @@ public class ProduitController {
 
     @GetMapping
     public List<Produit> getProduit() {
-        return produitService.getProduit();
+        return produitService.getProduits();
     }
 
     @GetMapping("/{id}")
     public Produit getProduit(@PathVariable("id") int id) {
-        return produitService.getProduit().get(id);
+        return produitService.getProduit(id);
     }
 
     @PostMapping

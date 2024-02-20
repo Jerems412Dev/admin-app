@@ -36,7 +36,7 @@ class AppRolesServiceTest {
     void createAppRoles() {
 
         AppRoles appRoles = new AppRoles();
-        appRoles.setNom("ROLE_USER");
+        appRoles.setNom("ROLE_ME");
 
         AppRoles appRolesSave = appRolesService.createAppRoles(appRoles);
 
@@ -49,7 +49,7 @@ class AppRolesServiceTest {
         AppRoles appRoles = new AppRoles();
         appRoles.setNom("ROLE_TECH");
 
-        AppRoles appRolesSave = appRolesService.updateAppRoles(3, appRoles);
+        AppRoles appRolesSave = appRolesService.updateAppRoles(1, appRoles);
 
         Assertions.assertEquals("ROLE_TECH", appRolesSave.getNom());
 
