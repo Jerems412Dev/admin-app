@@ -6,3 +6,5 @@
 <img src="/screenshots/s5.png" />
 <img src="/screenshots/s6.png" />
 <img src="/screenshots/s7.png" />
+<img src="/screenshots/s8.png" />
+<img src="/screenshots/s9.png" />
