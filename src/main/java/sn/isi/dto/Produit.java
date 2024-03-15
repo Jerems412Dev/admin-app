@@ -1,9 +1,11 @@
 package sn.isi.dto;
 
+import jakarta.persistence.ManyToOne;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import sn.isi.entities.AppUserEntity;
 
 @Data
 @NoArgsConstructor
@@ -14,4 +16,6 @@ public class Produit {
     private String nom;
     @NotNull
     private double qtStock;
+    @ManyToOne
+    private AppUser appUserEntity;
 }

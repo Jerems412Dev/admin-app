@@ -62,11 +62,4 @@ class AppRolesServiceTest {
         Assertions.assertTrue(true);
     }
 
-    @Test
-    void operation() {
-        int val1 = 1;
-        int val2 = 2;
-        int val3 = val1 + val2;
-        Assertions.assertEquals(3, val3);
-    }
 }

@@ -4,6 +4,9 @@ import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import sn.isi.entities.AppRolesEntity;
+
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -20,4 +23,6 @@ public class AppUser {
     private String password;
     @NotNull
     private int etat;
+    @NotNull
+    private List<AppRoles> appRoleEntities;
 }
